@@ -16,6 +16,7 @@ export default function AdminDashboard() {
     files: []
   });
 
+  const base_url = import.meta.env.VITE_API_BASE_URL;
   const [pageLoading, setPageLoading] = useState(true);
   const [deletingId, setDeletingId] = useState(null);
 
@@ -24,8 +25,9 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       setPageLoading(true);
+      const request_url = `${base_url}/api/admin/all-data`;
       const res = await axios.get(
-        "http://localhost:5000/api/admin/all-data",
+        request_url,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setData(res.data);
@@ -45,8 +47,9 @@ export default function AdminDashboard() {
 
     try {
       setDeletingId(id);
+      const request_url = `${base_url}/api/files/${id}`;
       await axios.delete(
-        `http://localhost:5000/api/files/${id}`,
+        request_url,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.warning("File removed by admin");

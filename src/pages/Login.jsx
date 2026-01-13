@@ -7,6 +7,8 @@ import { Loader2 } from "lucide-react";
 export default function Login({ setUser }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [isLoading, setIsLoading] = useState(false);
+    const base_url = import.meta.env.VITE_API_BASE_URL;
+
 
   const navigate = useNavigate();
 
@@ -17,7 +19,8 @@ export default function Login({ setUser }) {
     try {
       setIsLoading(true);
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        // "http://localhost:5000/api/auth/login",
+        `${base_url}/api/auth/login`,
         form
       );
 

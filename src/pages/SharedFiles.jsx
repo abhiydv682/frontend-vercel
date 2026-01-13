@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 export default function SharedFiles() {
   const [shared, setShared] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+        const base_url = import.meta.env.VITE_API_BASE_URL;
+
   const [deletingId, setDeletingId] = useState(null);
   const [editingId, setEditingId] = useState(null);
 
@@ -22,7 +24,7 @@ export default function SharedFiles() {
     try {
       setPageLoading(true);
       const res = await axios.get(
-        "http://localhost:5000/api/files/shared-with-me",
+        `${base_url}/api/files/shared-with-me`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setShared(res.data);
@@ -45,7 +47,7 @@ export default function SharedFiles() {
     try {
       setDeletingId(fileId);
       await axios.delete(
-        `http://localhost:5000/api/files/${fileId}`,
+        `${base_url}/api/files/${fileId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success("File deleted successfully");
@@ -67,7 +69,7 @@ export default function SharedFiles() {
     try {
       setEditingId(fileId);
       await axios.put(
-        `http://localhost:5000/api/files/edit/${fileId}`,
+        `${base_url}/api/files/edit/${fileId}`,
         formData,
         {
           headers: {

@@ -13,6 +13,8 @@ export default function SharedByMe() {
   const [shares, setShares] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [revokingId, setRevokingId] = useState(null);
+      const base_url = import.meta.env.VITE_API_BASE_URL;
+
 
   const token = localStorage.getItem("token");
 
@@ -20,7 +22,7 @@ export default function SharedByMe() {
     try {
       setPageLoading(true);
       const res = await axios.get(
-        "http://localhost:5000/api/files/shared-by-me",
+         `${base_url}/api/files/shared-by-me`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setShares(res.data);
@@ -41,7 +43,7 @@ export default function SharedByMe() {
     try {
       setRevokingId(accessId);
       await axios.delete(
-        `http://localhost:5000/api/files/share/${accessId}`,
+        `${base_url}/api/files/share/${accessId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.info("Access revoked");

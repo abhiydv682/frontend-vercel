@@ -16,6 +16,8 @@ const Dashboard = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [sharing, setSharing] = useState(false);
+  const base_url = import.meta.env.VITE_API_BASE_URL;
+
 
   // Share Modal States
   const [shareModal, setShareModal] = useState({
@@ -35,7 +37,8 @@ const Dashboard = () => {
     try {
       setPageLoading(true);
       const res = await axios.get(
-        'http://localhost:5000/api/files/myfiles',
+        // 'http://localhost:5000/api/files/myfiles',
+         `${base_url}/api/files/myfiles`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -58,7 +61,8 @@ const Dashboard = () => {
     try {
       setSharing(true);
       await axios.post(
-        'http://localhost:5000/api/files/share',
+        // 'http://localhost:5000/api/files/share',
+         `${base_url}/api/files/share`,
         {
           fileId: shareModal.fileId,
           receiverEmail: shareEmail,
@@ -86,7 +90,8 @@ const Dashboard = () => {
     try {
       setDeletingId(fileId);
       await axios.delete(
-        `http://localhost:5000/api/files/${fileId}`,
+        // `http://localhost:5000/api/files/${fileId}`,
+        `${base_url}/api/files/${fileId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setFiles(files.filter(f => f._id !== fileId));
@@ -109,7 +114,8 @@ const Dashboard = () => {
 
     try {
       await axios.post(
-        'http://localhost:5000/api/files/upload',
+        // 'http://localhost:5000/api/files/upload',
+         `${base_url}/api/files/upload`,
         formData,
         {
           headers: {

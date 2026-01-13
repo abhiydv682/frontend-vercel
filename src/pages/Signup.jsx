@@ -12,6 +12,8 @@ export default function Signup() {
     role: "user"
   });
   const [isLoading, setIsLoading] = useState(false);
+          const base_url = import.meta.env.VITE_API_BASE_URL;
+
 
   const navigate = useNavigate();
 
@@ -22,7 +24,8 @@ export default function Signup() {
     try {
       setIsLoading(true);
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        // "http://localhost:5000/api/auth/register",
+        `${base_url}/api/auth/register`,
         form
       );
       toast.success("Account created! Please login.");

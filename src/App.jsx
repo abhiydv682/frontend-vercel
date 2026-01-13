@@ -14,13 +14,15 @@ import SharedByMe from './pages/SharedByMe';
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
+  const base_url = import.meta.env.VITE_API_BASE_URL;
+
   // Automatic Login Check
   useEffect(() => {
     const checkUser = async () => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const res = await axios.get('http://localhost:5000/api/auth/me', {
+          const res = await axios.get(`${base_url}/api/auth/me`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setUser(res.data);
